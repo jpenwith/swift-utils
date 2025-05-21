@@ -29,20 +29,15 @@ public extension Sequence {
     }
 }
 
-
-public extension String {
-    var nilIfEmpty: String? {
-        isEmpty ? nil : self
-    }
-}
-
-
-public extension Optional {
-    func asyncFlatMap<U>(_ transform: (Wrapped) async throws -> U?) async rethrows -> U? {
-        guard let value = self else {
-            return nil
+public extension Sequence {
+    func asyncReduce<Result>(
+        _ initialResult: Result,
+        _ nextPartialResult: ((Result, Element) async throws -> Result)
+    ) async rethrows -> Result {
+        var result = initialResult
+        for element in self {
+            result = try await nextPartialResult(result, element)
         }
-
-        return try await transform(value)
+        return result
     }
 }
