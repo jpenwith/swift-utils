@@ -1,3 +1,4 @@
+import Foundation
 import SwiftUtils
 import Testing
 
@@ -66,27 +67,79 @@ struct SequenceSuite {
 struct JSONDecoderSuite {
     @Test func testDefaultInit() {
         let decoder = JSONDecoder()
-        #expect(decoder.dateDecodingStrategy == .deferredToDate)
-        #expect(decoder.dataDecodingStrategy == .base64)
-        #expect(decoder.nonConformingFloatDecodingStrategy == .throw)
-        #expect(decoder.keyDecodingStrategy == .useDefaultKeys)
+        
+        if case .deferredToDate = decoder.dateDecodingStrategy {
+            #expect(true)
+        }
+        else {
+            #expect((false))
+        }
+
+        if case .base64 = decoder.dataDecodingStrategy {
+            #expect(true)
+        }
+        else {
+            #expect((false))
+        }
+
+        if case .throw = decoder.nonConformingFloatDecodingStrategy {
+            #expect(true)
+        }
+        else {
+            #expect((false))
+        }
+
+        if case .useDefaultKeys = decoder.keyDecodingStrategy {
+            #expect(true)
+        }
+        else {
+            #expect((false))
+        }
     }
 
     @Test func testCustomInit() {
-        let customStrategy = NonConformingFloatDecodingStrategy.convertFromString(
-            positiveInfinity: "inf",
-            negativeInfinity: "-inf",
-            nan: "nan"
-        )
         let decoder = JSONDecoder(
             dateDecodingStrategy: .iso8601,
             dataDecodingStrategy: .deferredToData,
-            nonConformingFloatDecodingStrategy: customStrategy,
+            nonConformingFloatDecodingStrategy: .convertFromString(
+                positiveInfinity: "inf",
+                negativeInfinity: "-inf",
+                nan: "nan"
+            ),
             keyDecodingStrategy: .convertFromSnakeCase
         )
-        #expect(decoder.dateDecodingStrategy == .iso8601)
-        #expect(decoder.dataDecodingStrategy == .deferredToData)
-        #expect(decoder.nonConformingFloatDecodingStrategy == customStrategy)
-        #expect(decoder.keyDecodingStrategy == .convertFromSnakeCase)
+        if case .iso8601 = decoder.dateDecodingStrategy {
+            #expect(true)
+        }
+        else {
+            #expect((false))
+        }
+
+        if case .deferredToData = decoder.dataDecodingStrategy {
+            #expect(true)
+        }
+        else {
+            #expect((false))
+        }
+
+        if
+            case .convertFromString(let positiveInfinity, let negativeInfinity, let nan) = decoder.nonConformingFloatDecodingStrategy,
+            positiveInfinity == "inf",
+            negativeInfinity == "-inf",
+            nan == "nan"
+        {
+            #expect(true)
+        }
+        else {
+            #expect((false))
+        }
+
+        if case .convertFromSnakeCase = decoder.keyDecodingStrategy {
+            #expect(true)
+        }
+        else {
+            #expect((false))
+        }
+
     }
 }
