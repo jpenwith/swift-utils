@@ -61,3 +61,32 @@ struct SequenceSuite {
         #expect(result == 10)
     }
 }
+
+@Suite("JSONDecoder")
+struct JSONDecoderSuite {
+    @Test func testDefaultInit() {
+        let decoder = JSONDecoder()
+        #expect(decoder.dateDecodingStrategy == .deferredToDate)
+        #expect(decoder.dataDecodingStrategy == .base64)
+        #expect(decoder.nonConformingFloatDecodingStrategy == .throw)
+        #expect(decoder.keyDecodingStrategy == .useDefaultKeys)
+    }
+
+    @Test func testCustomInit() {
+        let customStrategy = NonConformingFloatDecodingStrategy.convertFromString(
+            positiveInfinity: "inf",
+            negativeInfinity: "-inf",
+            nan: "nan"
+        )
+        let decoder = JSONDecoder(
+            dateDecodingStrategy: .iso8601,
+            dataDecodingStrategy: .deferredToData,
+            nonConformingFloatDecodingStrategy: customStrategy,
+            keyDecodingStrategy: .convertFromSnakeCase
+        )
+        #expect(decoder.dateDecodingStrategy == .iso8601)
+        #expect(decoder.dataDecodingStrategy == .deferredToData)
+        #expect(decoder.nonConformingFloatDecodingStrategy == customStrategy)
+        #expect(decoder.keyDecodingStrategy == .convertFromSnakeCase)
+    }
+}
