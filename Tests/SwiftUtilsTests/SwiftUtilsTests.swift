@@ -5,14 +5,14 @@ import Testing
 @Suite("Duration")
 struct Duration {
     @Test func testMinutes() {
-        #expect(Duration.minutes(77) == .seconds(4620))
+        #expect(Swift.Duration.minutes(77) == .seconds(4620))
     }
 
     @Test func testHours() {
-        #expect(Duration.hours(2) == .minutes(120))
+        #expect(Swift.Duration.hours(2) == .minutes(120))
     }
 
     @Test func testDays() {
-        #expect(Duration.days(3) == .hours(72))
+        #expect(Swift.Duration.days(3) == .hours(72))
     }
 }
