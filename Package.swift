@@ -21,6 +21,6 @@ let package = Package(
             name: "SwiftUtils"),
         .testTarget(
             name: "SwiftUtilsTests",
-            dependencies: ["SwiftUtils"]),
+            dependencies: ["SwiftUtils", "Testing"]),
     ]
 )
