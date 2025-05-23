@@ -27,28 +27,28 @@ struct JSONEncoderSuite {
             #expect(true)
         }
         else {
-            #expect(false)
+            #expect((false))
         }
 
         if case .base64 = encoder.dataEncodingStrategy {
             #expect(true)
         }
         else {
-            #expect(false)
+            #expect((false))
         }
 
         if case .throw = encoder.nonConformingFloatEncodingStrategy {
             #expect(true)
         }
         else {
-            #expect(false)
+            #expect((false))
         }
 
         if case .useDefaultKeys = encoder.keyEncodingStrategy {
             #expect(true)
         }
         else {
-            #expect(false)
+            #expect((false))
         }
     }
 
@@ -56,7 +56,7 @@ struct JSONEncoderSuite {
         let encoder = JSONEncoder(
             outputFormatting: [.prettyPrinted, .sortedKeys],
             dateEncodingStrategy: .iso8601,
-            dataEncodingStrategy: .base64URL,
+            dataEncodingStrategy: .base64,
             nonConformingFloatEncodingStrategy: .convertToString(
                 positiveInfinity: "inf",
                 negativeInfinity: "-inf",
@@ -71,14 +71,14 @@ struct JSONEncoderSuite {
             #expect(true)
         }
         else {
-            #expect(false)
+            #expect((false))
         }
 
-        if case .base64URL = encoder.dataEncodingStrategy {
+        if case .base64 = encoder.dataEncodingStrategy {
             #expect(true)
         }
         else {
-            #expect(false)
+            #expect((false))
         }
 
         if
@@ -90,14 +90,14 @@ struct JSONEncoderSuite {
             #expect(true)
         }
         else {
-            #expect(false)
+            #expect((false))
         }
 
         if case .convertToSnakeCase = encoder.keyEncodingStrategy {
             #expect(true)
         }
         else {
-            #expect(false)
+            #expect((false))
         }
     }
 }
