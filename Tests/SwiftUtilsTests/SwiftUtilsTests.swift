@@ -31,3 +31,18 @@ struct OptionalSuite {
         #expect(result == nil)
     }
 }
+
+@Suite("String")
+struct StringSuite {
+    @Test func testNilIfEmptyWithEmptyString() {
+        let empty = ""
+        let result = empty.nilIfEmpty
+        #expect(result == nil)
+    }
+
+    @Test func testNilIfEmptyWithNonEmptyString() {
+        let nonEmpty = "hello"
+        let result = nonEmpty.nilIfEmpty
+        #expect(result == "hello")
+    }
+}
