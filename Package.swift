@@ -24,6 +24,7 @@ let package = Package(
             name: "SwiftUtilsTests",
             dependencies: [
                 "SwiftUtils",
+                "Testing"
             ]),
     ]
 )

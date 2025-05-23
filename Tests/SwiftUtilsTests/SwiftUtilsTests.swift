@@ -46,3 +46,18 @@ struct StringSuite {
         #expect(result == "hello")
     }
 }
+
+@Suite("Sequence")
+struct SequenceSuite {
+    @Test func testAsyncMap() async throws {
+        let input = [1, 2, 3]
+        let result = try await input.asyncMap { i in i * 2 }
+        #expect(result == [2, 4, 6])
+    }
+
+    @Test func testAsyncReduce() async throws {
+        let input = [1, 2, 3, 4]
+        let result = try await input.asyncReduce(0) { acc, element in acc + element }
+        #expect(result == 10)
+    }
+}
