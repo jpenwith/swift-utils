@@ -21,13 +21,13 @@ struct Duration {
 struct OptionalSuite {
     @Test func testAsyncFlatMapWithValue() async throws {
         let initial: Int? = 3
-        let result = try await initial.asyncFlatMap { value in String(value) }
+        let result = await initial.asyncFlatMap { value in String(value) }
         #expect(result == "3")
     }
 
     @Test func testAsyncFlatMapWithNil() async throws {
         let initial: Int? = nil
-        let result = try await initial.asyncFlatMap { _ in "ignored" }
+        let result = await initial.asyncFlatMap { _ in "ignored" }
         #expect(result == nil)
     }
 }
