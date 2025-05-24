@@ -33,3 +33,22 @@ extension JSONDecoder {
         }
     }
 }
+
+
+extension JSONDecoder.DateDecodingStrategy {
+    public static func multipleFormatted(_ dateFormatters: DateFormatter ...) -> Self {
+        .custom({ decoder in
+            let container = try decoder.singleValueContainer()
+
+            let dateString = try container.decode(String.self)
+            
+            for dateFormatter in dateFormatters {
+                if let date = dateFormatter.date(from: dateString) {
+                    return date
+                }
+            }
+
+            throw DecodingError.dataCorruptedError(in: container, debugDescription: "Date string \(dateString) not matching any of the provided date formatters")
+        })
+    }
+}
