@@ -1,5 +1,5 @@
-public extension Sequence {
-    func asyncMap<T>(
+extension Sequence {
+    public func asyncMap<T>(
         _ transform: (Element) async throws -> T
     ) async rethrows -> [T] {
         var values = [T]()
@@ -12,9 +12,19 @@ public extension Sequence {
     }
 }
 
+extension Sequence {
+    public func asyncForEach(
+        _ body: (Element) async throws -> Void
+    ) async rethrows {
+        for element in self {
+            try await body(element)
+        }
+    }
+}
 
-public extension Sequence {
-    func asyncReduce<Result>(
+
+extension Sequence {
+    public func asyncReduce<Result>(
         _ initialResult: Result,
         _ nextPartialResult: ((Result, Element) async throws -> Result)
     ) async rethrows -> Result {
