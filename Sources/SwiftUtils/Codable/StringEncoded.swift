@@ -17,7 +17,7 @@ public struct StringEncoded<Value: LosslessStringConvertible & Codable> {
 extension StringEncoded: Codable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        let string = try container.decode(String.self)
+        let string = try container.decode(String.self).lowercased()
         guard let value = Value(string) else {
             throw DecodingError.dataCorruptedError(in: container, debugDescription: "Invalid \(Value.self) string: \(string)")
         }
@@ -45,7 +45,7 @@ public struct OptionalStringEncoded<Value: LosslessStringConvertible & Codable>:
             return
         }
 
-        let string = try container.decode(String.self)
+        let string = try container.decode(String.self).lowercased()
         self.wrappedValue = Value(string)
     }
 

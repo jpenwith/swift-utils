@@ -69,7 +69,7 @@ extension Tests.Codable {
                 @SwiftUtils.StringEncoded var value: Bool
             }
 
-            let jsonTrue = #"{"value":"true"}"#.data(using: .utf8)!
+            let jsonTrue = #"{"value":"True"}"#.data(using: .utf8)!
             let decodedTrue = try JSONDecoder().decode(TestData.self, from: jsonTrue)
             #expect(decodedTrue.value == TestData(value: true).value)
 
