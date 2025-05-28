@@ -10,14 +10,15 @@ extension Tests {
             #expect(result.isEmpty)
         }
 
-        @Test func testNilValuesOmitted() {
+        @Test func testNilValuesOmitted() throws {
             let dict: [Swift.String: Swift.String?] = ["a": "apple", "b": nil, "c": "cherry"]
             let result = (dict as [Swift.String: Swift.Optional<any LosslessStringConvertible>]).urlQueryItems
             #expect(result.count == 2)
-            #expect(result[0].name == "a")
-            #expect(result[0].value == "apple")
-            #expect(result[1].name == "c")
-            #expect(result[1].value == "cherry")
+            
+            let aQueryItem = try #require(result.first { $0.name == "a" })
+            #expect(aQueryItem.value == "apple")
+            let cQueryItem = try #require(result.first { $0.name == "c" })
+            #expect(cQueryItem.value == "cherry")
         }
 
         @Test func testValueStringConvertible() {

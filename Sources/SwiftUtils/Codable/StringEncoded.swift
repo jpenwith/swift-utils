@@ -5,8 +5,9 @@
 //  Created by me on 28/05/2025.
 //
 
+
 @propertyWrapper
-public struct StringEncoded<Value: LosslessStringConvertible & Codable> {
+public struct StringEncoded<Value: LosslessStringConvertible> {
     public var wrappedValue: Value
 
     public init(wrappedValue: Value) {
@@ -30,14 +31,17 @@ extension StringEncoded: Codable {
     }
 }
 
-@propertyWrapper
-public struct OptionalStringEncoded<Value: LosslessStringConvertible & Codable>: Codable {
-    public var wrappedValue: Value?
 
+@propertyWrapper
+public struct OptionalStringEncoded<Value: LosslessStringConvertible> {
+    public var wrappedValue: Value?
+    
     public init(wrappedValue: Value?) {
         self.wrappedValue = wrappedValue
     }
+}
 
+extension OptionalStringEncoded: Codable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
         if container.decodeNil() {
