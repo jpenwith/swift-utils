@@ -1,13 +1,24 @@
-extension Tests {
+//
+//  Tests.JSON.JSONEncoder
+//  swift-utils
+//
+//  Created by me on 24/05/2025.
+//
+import Foundation
+import SwiftUtils
+import Testing
+
+extension Tests.Codable {
     @Suite("StringEncoded")
     struct StringEncoded {
         @Test func testValidEncodeDecode() throws {
-            struct TestData: Codable, Equatable {
-                @StringEncoded var value: Int
+            struct TestData: Codable {
+                @SwiftUtils.StringEncoded var value: Int
             }
+
             let json = #"{"value":"789"}"#.data(using: .utf8)!
             let decoded = try JSONDecoder().decode(TestData.self, from: json)
-            #expect(decoded == TestData(value: 789))
+            #expect(decoded.value == TestData(value: 789).value)
 
             let encodedData = try JSONEncoder().encode(TestData(value: 321))
             let encodedString = String(data: encodedData, encoding: .utf8)!
@@ -16,24 +27,24 @@ extension Tests {
 
         @Test func testInvalidDecodeThrows() throws {
             struct TestData: Codable {
-                @StringEncoded var value: Int
+                @SwiftUtils.StringEncoded var value: Int
             }
             let json = #"{"value":"notanumber"}"#.data(using: .utf8)!
             do {
                 _ = try JSONDecoder().decode(TestData.self, from: json)
-                #expect(false)
+                #expect((false))
             } catch {
                 #expect(true)
             }
         }
 
         @Test func testOptionalEncodeDecodeWithValue() throws {
-            struct TestData: Codable, Equatable {
-                @OptionalStringEncoded var value: Double?
+            struct TestData: Codable {
+                @SwiftUtils.OptionalStringEncoded var value: Double?
             }
             let json = #"{"value":"42.5"}"#.data(using: .utf8)!
             let decoded = try JSONDecoder().decode(TestData.self, from: json)
-            #expect(decoded == TestData(value: 42.5))
+            #expect(decoded.value == TestData(value: 42.5).value)
 
             let encodedData = try JSONEncoder().encode(TestData(value: 84.2))
             let encodedString = String(data: encodedData, encoding: .utf8)!
@@ -41,12 +52,12 @@ extension Tests {
         }
 
         @Test func testOptionalEncodeDecodeNil() throws {
-            struct TestData: Codable, Equatable {
-                @OptionalStringEncoded var value: Int?
+            struct TestData: Codable {
+                @SwiftUtils.OptionalStringEncoded var value: Int?
             }
             let json = #"{"value":null}"#.data(using: .utf8)!
             let decoded = try JSONDecoder().decode(TestData.self, from: json)
-            #expect(decoded == TestData(value: nil))
+            #expect(decoded.value == TestData(value: nil).value)
 
             let encodedData = try JSONEncoder().encode(TestData(value: nil))
             let encodedString = String(data: encodedData, encoding: .utf8)!
