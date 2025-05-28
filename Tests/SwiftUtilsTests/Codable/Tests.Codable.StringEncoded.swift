@@ -63,5 +63,19 @@ extension Tests.Codable {
             let encodedString = String(data: encodedData, encoding: .utf8)!
             #expect(encodedString.contains("\"value\":null"))
         }
+
+        @Test func testBoolEncodeDecode() throws {
+            struct TestData: Codable {
+                @SwiftUtils.StringEncoded var value: Bool
+            }
+
+            let jsonTrue = #"{"value":"true"}"#.data(using: .utf8)!
+            let decodedTrue = try JSONDecoder().decode(TestData.self, from: jsonTrue)
+            #expect(decodedTrue.value == TestData(value: true).value)
+
+            let encodedFalseData = try JSONEncoder().encode(TestData(value: false))
+            let encodedFalseString = String(data: encodedFalseData, encoding: .utf8)!
+            #expect(encodedFalseString.contains("\"value\":\"false\""))
+        }
     }
 }
