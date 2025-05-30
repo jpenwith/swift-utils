@@ -37,13 +37,13 @@ extension Sequence {
 }
 
 extension Sequence {
-    func sorted<T: Comparable>(on value: @escaping (Element) -> T) -> [Element] {
+    public func sorted<T: Comparable>(on value: @escaping (Element) -> T) -> [Element] {
         sorted { value($0) < value($1) }
     }
 }
 
 extension Sequence {
-    func sorted<T: Comparable>(on keyPath: KeyPath<Element, T>) -> [Element] {
+    public func sorted<T: Comparable>(on keyPath: KeyPath<Element, T>) -> [Element] {
         sorted { $0[keyPath: keyPath] < $1[keyPath: keyPath] }
     }
 }

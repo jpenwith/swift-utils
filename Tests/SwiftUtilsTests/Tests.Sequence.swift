@@ -1,5 +1,5 @@
 import Testing
-import  SwiftUtils
+import SwiftUtils
 
 extension Tests {
     @Suite("Sequence")
@@ -30,7 +30,7 @@ extension Tests {
         }
 
         @Test func testSortedOnKeyPath() {
-            struct Item { let name: String; let quantity: Int }
+            struct Item { let name: Swift.String; let quantity: Int }
             let input = [
                 Item(name: "apple", quantity: 5),
                 Item(name: "banana", quantity: 2),
