@@ -22,5 +22,22 @@ extension Tests {
             let result = await input.asyncReduce(0) { acc, element in acc + element }
             #expect(result == 10)
         }
+
+        @Test func testSortedOnClosure() {
+            let input = ["cherry", "apple", "banana"]
+            let result = input.sorted(on: { $0.count })
+            #expect(result == ["apple", "cherry", "banana"])
+        }
+
+        @Test func testSortedOnKeyPath() {
+            struct Item { let name: String; let quantity: Int }
+            let input = [
+                Item(name: "apple", quantity: 5),
+                Item(name: "banana", quantity: 2),
+                Item(name: "cherry", quantity: 7)
+            ]
+            let result = input.sorted(on: \.quantity)
+            #expect(result.map { $0.name } == ["banana", "apple", "cherry"])
+        }
     }
 }
