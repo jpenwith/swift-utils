@@ -23,6 +23,12 @@ extension Tests {
             #expect(result == 10)
         }
 
+        @Test func testAsyncCompactMap() async throws {
+            let input = ["1", "two", "3"]
+            let result = await input.asyncCompactMap { str in Int(str) }
+            #expect(result == [1, 3])
+        }
+
         @Test func testSortedOnClosure() {
             let input = ["cherry", "apple", "banana"]
             let result = input.sorted(on: { $0.count })

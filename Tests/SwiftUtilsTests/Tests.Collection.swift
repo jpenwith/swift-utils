@@ -31,5 +31,15 @@ extension Tests {
             }
             #expect(result == [2, 4])
         }
+
+        @Test func testSafeSubscriptInBounds() {
+            let array = [1, 2, 3]
+            #expect(array[safe: 1] == 2)
+        }
+
+        @Test func testSafeSubscriptOutOfBounds() {
+            let array = [1, 2, 3]
+            #expect(array[safe: 5] == nil)
+        }
     }
 }

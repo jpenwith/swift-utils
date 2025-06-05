@@ -23,6 +23,20 @@ extension Sequence {
     }
 }
 
+extension Sequence {
+    public func asyncCompactMap<T>(
+        _ transform: (Element) async throws -> T?
+    ) async rethrows -> [T] {
+        var values = [T]()
+        for element in self {
+            if let value = try await transform(element) {
+                values.append(value)
+            }
+        }
+        return values
+    }
+}
+
 
 extension Sequence {
     public func asyncReduce<Result>(

@@ -39,12 +39,17 @@ extension Collection where Element: Sendable {
                     (index, try await transform(element))
                 }
             }
-
+            
             var results = Array<T?>(repeating: nil, count: self.count)
             for try await (index, value) in group {
                 results[index] = value
             }
             return results.compactMap { $0 }
         }
+    }
+
+
+    public subscript(safe index: Index) -> Element? {
+        indices.contains(index) ? self[index] : nil
     }
 }

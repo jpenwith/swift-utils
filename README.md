@@ -7,8 +7,9 @@
 - Lossless string‐encoded `Codable` property wrappers: `@StringEncoded` and `@OptionalStringEncoded`  
 - JSON encoder/decoder convenience initializers and multiple‐formatter decoding strategy  
 - `DateFormatter` convenience initializers and ISO8601 support  
-- `Duration` constructors: `.minutes(_:)`, `.hours(_:)`, `.days(_:)`  
-- Async helpers for `Optional` (`asyncFlatMap`) and `Sequence` (`asyncMap`, `asyncForEach`, `asyncReduce`)  
+- `Duration` constructors: `.minutes(_:)`, `.hours(_:)`, `.days(_:)`
+- Async helpers for `Optional` (`asyncFlatMap`) and `Sequence` (`asyncMap`, `asyncCompactMap`, `asyncForEach`, `asyncReduce`)
+- Collection safe subscripting: `subscript(safe:)`
 - String extension: `nilIfEmpty`
 
 ## Requirements
@@ -41,6 +42,8 @@ let decoder = JSONDecoder(dateDecodingStrategy: .multipleFormatted(
     DateFormatter(iso8601Format: .default),
     DateFormatter(dateFormat: "yyyy-MM-dd")
 ))
+
+let element = [1, 2, 3][safe: 5]                     // nil
 ```
 
 ## License
