@@ -36,5 +36,10 @@ extension Tests {
             let df = Foundation.DateFormatter(iso8601Format: .microseconds)
             #expect(df.dateFormat == "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ")
         }
+
+        @Test func testInitISO8601Milliseconds() {
+            let df = Foundation.DateFormatter(iso8601Format: .milliseconds)
+            #expect(df.dateFormat == "yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+        }
     }
 }
