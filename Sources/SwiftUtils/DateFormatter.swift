@@ -55,12 +55,15 @@ extension DateFormatter {
 
     public enum ISO8601Format {
         case `default`
+        case milliseconds
         case microseconds
         
         var formatString: String {
             switch self {
                 case .default:
                     return "yyyy-MM-dd'T'HH:mm:ssZ"
+                case .milliseconds:
+                    return "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
                 case .microseconds:
                     return "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ"
             }
