@@ -36,6 +36,18 @@ extension JSONDecoder {
 
 
 extension JSONDecoder.DateDecodingStrategy {
+    public static var iso8601WithMilliseconds: Self {
+        .multipleFormatted(.init(iso8601Format: .milliseconds))
+    }
+}
+
+extension JSONDecoder.DateDecodingStrategy {
+    public static var iso8601WithMicroseconds: Self {
+        .multipleFormatted(.init(iso8601Format: .microseconds))
+    }
+}
+
+extension JSONDecoder.DateDecodingStrategy {
     public static func multipleFormatted(_ dateFormatters: DateFormatter ...) -> Self {
         .custom({ decoder in
             
