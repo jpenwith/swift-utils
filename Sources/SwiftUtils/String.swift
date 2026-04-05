@@ -3,3 +3,5 @@ public extension String {
         isEmpty ? nil : self
     }
 }
+
+extension String: AnyType {}
